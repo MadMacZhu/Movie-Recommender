@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>电影推荐系统</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Auto Complete -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}"/>
+
+  <script type="text/javascript">
+    var films = {{ suggestions|tojson }};
+    $(document).ready(function(){
+      $("#myModal").modal('show');
+    });
+  </script>
+
+</head>
+
+<body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
+<div class="body-content">
+	<div class="ml-container" style="display: block;">
+    <center><h1 class="app-title">电影推荐系统</h1></center>
+    <div class="form-group shadow-textarea" id="input">
+        <input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off" placeholder="请输入电影名称" style="width: 60%; height: 5vh;" required="required" />
+        <br>
+    </div>
+
+    <div class="form-group" style="text-align: center;">
+      <button class="btn btn-primary btn-block movie-button" style="background-color: #e50914;text-align: center;border-color: #e50914;width:120px;" disabled="true" >搜索</button><br><br>
+    </div>
+	</div>
+
+  <div id="loader" class="text-center">
+  </div>
+  
+  <div class="fail">
+    <center><h3>对不起！您所搜索的电影不在我们的数据库里，请检查电影名称的拼写是否正确。</h3></center>
+  </div>
+
+	<div class="results">
+    <center>
+      <h2 id="name" class="text-uppercase"></h2>
+    </center>
+	</div>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #e50914;color: white;">
+          <h5 class="modal-title" id="exampleModalLabel3">您好!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: white">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: large;">如果您输入的电影名称没有被自动不全的话，请不要担心。即使您输入名称有误。只要点击“搜索”我们也会帮您搜索名字接近的电影。</p>
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">知道了!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <footer>
+    <div class="container-fluid padding">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <hr class="light">
+          <h3>关于作者</h3>
+          <hr class="light">
+          <p><a href="https://github.com/MadMacZhu" target="_blank">我的GitHub主页</a></p>
+          <p><a href="https://github.com/MadMacZhu/Pathfinding-Algorithms-Visualizer" target="_blank">这个应用的GitHub库</a></p>
+          <p>mattzhu1989@gmail.com</p>
+          <p>广东，深圳</p>
+        </div>
+
+        <div class="col-md-4">
+          <hr class="light">
+          <h3>优秀资源</h3>
+          <hr class="light">
+          <p><a href="https://youtu.be/09_LlHjoEiY" target="_blank">Graph Theory Algo Course by a Google Engineer</a></p>
+          <p><a href="https://youtu.be/9cKsq14Kfsw" target="_blank">Bootstrap Tutorial</a></p>
+          <p><a href="https://youtu.be/mU6anWqZJcc" target="_blank">HTML5 and CSS3 from Scratch</a></p>
+          <p><a href="https://youtu.be/PkZNo7MFNFg" target="_blank">JavaScript Tutorial</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <hr class="light">
+          <h3>特别鸣谢</h3>
+          <hr class="light">
+          <p><a href="https://www.youtube.com/channel/UCaO6VoaYJv4kS-TQO_M-N_g" target="_blank">Clément Mihailescu Youtube Channel</a></p>
+          <p><a href="https://www.youtube.com/channel/UC4JX40jDee_tINbkjycV4Sg" target="_blank">Tech with Tim Youtube Channel</a></p>
+          <p><a href="https://www.youtube.com/user/krishnaik06" target="_blank">Krish Naik Youtube Channel</a></p>
+          <p><a href="https://www.youtube.com/channel/UCiT9RITQ9PW6BhXK0y2jaeg" target="_blank">Ken Jee Youtube Channel</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="col-12">
+    <hr class="light socket">
+    <h5>&copy;MadMacZhu, 2020-09-04</h5>
+  </div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='autocomplete.js')}}"></script>
+
+  <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
